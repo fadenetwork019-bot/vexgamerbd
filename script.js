@@ -125,5 +125,5 @@ async function loadGames() {
 }
 
 
-
 loadNotice();
+loadGames();
