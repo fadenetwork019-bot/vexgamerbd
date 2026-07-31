@@ -1,0 +1,392 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#0b0f19;
+color:#fff;
+}
+
+/* Header */
+
+header{
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+background:#111827;
+box-shadow:0 0 15px rgba(0,255,170,.2);
+z-index:999;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:#00ffae;
+text-shadow:0 0 12px #00ffae;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-weight:600;
+transition:.3s;
+}
+
+nav a:hover{
+color:#00ffae;
+}
+
+/* Hero */
+
+.hero{
+text-align:center;
+padding:90px 20px;
+background:linear-gradient(135deg,#111827,#1f2937,#0b0f19);
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:15px;
+}
+
+.hero p{
+color:#bbb;
+font-size:18px;
+margin-bottom:30px;
+}
+
+.btn{
+display:inline-block;
+padding:15px 35px;
+background:#00ffae;
+color:#111;
+text-decoration:none;
+font-weight:bold;
+border-radius:12px;
+box-shadow:0 0 25px #00ffae;
+transition:.15s;
+}
+
+/* Minecraft Click Animation */
+
+.btn:active{
+transform:translateY(4px) scale(.92);
+box-shadow:0 0 6px #00ffae;
+}
+
+.section-title{
+text-align:center;
+font-size:35px;
+margin:50px 0 30px;
+color:#00ffae;
+}
+
+/* Games */
+
+.games{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+padding:25px;
+}
+
+.card{
+background:#161b22;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 0 15px rgba(0,255,174,.15);
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 30px rgba(0,255,174,.4);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.card-content{
+padding:18px;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.card p{
+color:#ccc;
+font-size:14px;
+margin-bottom:15px;
+}
+
+.downloadBtn{
+width:100%;
+padding:12px;
+background:#00ffae;
+color:#111;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.12s;
+}
+
+.downloadBtn:hover{
+background:#00d894;
+}
+
+.downloadBtn:active{
+transform:translateY(4px) scale(.94);
+box-shadow:0 0 5px #00ffae;
+}
+
+/* Footer */
+
+footer{
+margin-top:50px;
+background:#111827;
+padding:20px;
+text-align:center;
+color:#aaa;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+header{
+flex-direction:column;
+gap:15px;
+}
+
+nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+nav a{
+margin:8px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.section-title{
+font-size:28px;
+}
+
+}
+.game-card{
+background:#1e293b;
+padding:15px;
+border-radius:15px;
+margin:15px;
+}
+
+.game-card img{
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:20px;
+display:block;
+margin:0 auto 15px;
+}
+
+.game-card h2{
+font-size:20px;
+margin-top:12px;
+}
+
+.game-card p{
+font-size:14px;
+color:#ddd;
+margin:6px 0;
+}
+
+.game-card button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#00ffae;
+font-size:15px;
+font-weight:bold;
+}
+.download-page{
+max-width:500px;
+margin:30px auto;
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+.download-page img{
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+.download-page h1{
+font-size:24px;
+margin-bottom:10px;
+}
+
+.download-page p{
+font-size:15px;
+margin:8px 0;
+color:#ddd;
+}
+
+#downloadBtn{
+width:100%;
+padding:15px;
+margin-top:20px;
+font-size:18px;
+background:#00ffae;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+/* ===== Desktop ===== */
+@media (min-width: 769px){
+
+.games{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:20px;
+}
+
+.game-card{
+padding:20px;
+}
+
+.game-card img{
+width:180px;
+height:180px;
+}
+
+.game-card h2{
+font-size:22px;
+}
+
+}
+
+/* ===== Mobile ===== */
+@media (max-width:768px){
+
+.games{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+padding:12px;
+}
+
+.game-card{
+padding:12px;
+}
+
+.game-card img{
+width:110px;
+height:110px;
+}
+
+.game-card h2{
+font-size:16px;
+}
+
+.game-card p{
+font-size:13px;
+}
+
+.game-card button{
+font-size:14px;
+padding:10px;
+}
+
+}
+.notice-banner{
+background:#00ffae;
+color:#111;
+padding:12px;
+text-align:center;
+font-weight:700;
+font-size:16px;
+}
+.support-box{
+max-width:900px;
+margin:30px auto;
+padding:20px;
+background:#1e293b;
+border-radius:15px;
+text-align:center;
+color:#fff;
+box-shadow:0 0 15px rgba(0,255,174,.2);
+}
+
+.support-btn{
+display:inline-block;
+margin:10px;
+padding:12px 22px;
+background:#25D366;
+color:#fff;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+}
+
+.support-btn.discord{
+background:#5865F2;
+}
+.trending-card{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+text-align:center;
+margin:15px;
+box-shadow:0 0 15px rgba(255,120,0,.3);
+}
+
+.fire-text{
+font-size:28px;
+font-weight:700;
+color:#ff9800;
+animation:fireGlow 1.2s infinite alternate;
+text-shadow:0 0 5px #ff9800,
+0 0 10px #ff5722,
+0 0 20px #ff0000;
+}
+
+@keyframes fireGlow{
+0%{
+text-shadow:0 0 5px #ff9800,0 0 10px #ff5722,0 0 20px #ff0000;
+transform:scale(1);
+}
+100%{
+text-shadow:0 0 10px #ffd54f,0 0 20px #ff9800,0 0 35px #ff0000;
+transform:scale(1.05);
+}
+}

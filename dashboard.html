@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VexGamerBD Admin Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+}
+
+header{
+background:#111827;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h1{
+font-size:25px;
+color:#00ffae;
+}
+
+.container{
+max-width:1000px;
+margin:30px auto;
+padding:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+margin-bottom:25px;
+box-shadow:0 0 15px rgba(0,255,170,.2);
+}
+
+.card h2{
+margin-bottom:15px;
+color:#00ffae;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#334155;
+color:white;
+font-size:15px;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+background:#00ffae;
+color:black;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.02);
+}
+
+.logout{
+background:#ff4d4d;
+color:white;
+width:auto;
+padding:10px 20px;
+}
+
+#gamesList{
+margin-top:20px;
+}
+
+.game-card{
+background:#334155;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.game-card img{
+width:100%;
+max-width:220px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.edit{
+background:#ffc107;
+margin-top:10px;
+}
+
+.delete{
+background:#dc3545;
+color:white;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🎮 VexGamerBD Admin</h1>
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Add New Game</h2>
+
+<input id="name" placeholder="Game Name">
+
+<input id="image" placeholder="Game Image URL">
+
+<input id="version" placeholder="Version">
+
+<input id="android" placeholder="Android Version">
+
+<input id="size" placeholder="Game Size">
+
+<select id="category">
+<option>Minecraft</option>
+<option>Horror</option>
+<option>Action</option>
+<option>Adventure</option>
+<option>Other</option>
+</select>
+
+<input id="code" placeholder="Secret Download Code">
+
+<input id="download" placeholder="Download Link">
+
+<textarea id="description" placeholder="Game Description"></textarea>
+
+<button id="addBtn" onclick="addGame()">
+➕ Add Game
+
+</button>
+
+
+</div>
+
+<div class="card">
+
+<h2>🎮 All Games</h2>
+
+<div id="gamesList">
+
+Loading Games...
+
+</div>
+
+</div>
+
+</div>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+updateDoc,
+doc
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyAwdwG9nA5qTpr_3K2AGM270dsITirSf6Q",
+authDomain:"infinity-mart-ccfb9.firebaseapp.com",
+projectId:"infinity-mart-ccfb9",
+storageBucket:"infinity-mart-ccfb9.firebasestorage.app",
+messagingSenderId:"482162648030",
+appId:"1:482162648030:web:3ce3e3f2dea4de146af34f"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+location.href="admin-login.html";
+
+}else{
+
+loadGames();
+
+}
+
+});
+
+window.logout=function(){
+
+signOut(auth).then(()=>{
+
+location.href="admin-login.html";
+
+});
+
+};
+
+window.addGame = async function(){
+
+await addDoc(collection(db,"games"),{
+
+name:document.getElementById("name").value,
+
+image:document.getElementById("image").value,
+
+version:document.getElementById("version").value,
+
+android:document.getElementById("android").value,
+
+size:document.getElementById("size").value,
+
+category:document.getElementById("category").value,
+
+code:document.getElementById("code").value,
+
+download:document.getElementById("download").value,
+
+description:document.getElementById("description").value,
+
+createdAt:Date.now()
+
+});
+
+alert("Game Added Successfully");
+
+location.reload();
+
+};
+async function loadGames(){
+
+const gamesList = document.getElementById("gamesList");
+
+gamesList.innerHTML = "";
+
+const snapshot = await getDocs(collection(db,"games"));
+
+if(snapshot.empty){
+
+gamesList.innerHTML = "<h3>No Games Found</h3>";
+
+return;
+
+}
+
+snapshot.forEach((docSnap)=>{
+
+const game = docSnap.data();
+
+gamesList.innerHTML += `
+
+<div class="game-card">
+
+<img src="${game.image}" width="180">
+
+<h3>${game.name}</h3>
+
+<p><b>Version:</b> ${game.version}</p>
+
+<p><b>Android:</b> ${game.android}</p>
+
+<p><b>Size:</b> ${game.size}</p>
+
+<p><b>Category:</b> ${game.category}</p>
+
+
+<button class="edit"
+onclick="editGame('${docSnap.id}')">
+✏️ Edit
+</button>
+
+<button class="delete"
+onclick="deleteGame('${docSnap.id}')">
+🗑 Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+window.deleteGame = async function(id){
+
+if(confirm("Delete this game?")){
+
+await deleteDoc(doc(db,"games",id));
+
+alert("Game Deleted");
+
+loadGames();
+
+}
+
+}
+let editId = null;
+
+window.editGame = async function(id){
+
+editId = id;
+
+const snapshot = await getDocs(collection(db,"games"));
+
+snapshot.forEach((docSnap)=>{
+
+if(docSnap.id == id){
+
+const game = docSnap.data();
+
+document.getElementById("name").value = game.name;
+document.getElementById("image").value = game.image;
+document.getElementById("version").value = game.version;
+document.getElementById("android").value = game.android;
+document.getElementById("size").value = game.size;
+document.getElementById("category").value = game.category;
+document.getElementById("code").value = game.code;
+document.getElementById("download").value = game.download;
+document.getElementById("description").value = game.description;
+
+}
+
+});
+
+const btn = document.getElementById("addBtn");
+
+btn.innerHTML = "💾 Update Game";
+
+btn.onclick = updateGame;
+
+};

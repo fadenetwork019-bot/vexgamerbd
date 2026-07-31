@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VexGamerBD Admin Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#0f172a;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.login-box{
+width:360px;
+background:#1e293b;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,255,170,.25);
+}
+
+h2{
+color:#00ffae;
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+background:#334155;
+color:white;
+font-size:15px;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#00ffae;
+color:black;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="login-box">
+
+<h2>🎮 Admin Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Admin Email">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB3RgKEoYuaRoySgzM7eCEN9ArFsiSepX0",
+  authDomain: "infinity-mart-28000.firebaseapp.com",
+  projectId: "infinity-mart-28000",
+  storageBucket: "infinity-mart-28000.firebasestorage.app",
+  messagingSenderId: "64222307926",
+  appId: "1:64222307926:web:f5c22c05f48fffda24fdf7"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+
+window.login=async function(){
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(auth,email,password);
+
+location.href="dashboard.html";
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
